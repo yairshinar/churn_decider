@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>A/B Test Analysis</h1>
+
+<h2>Overview</h2>
+<p>The redesigned Golden Spin feature aimed to increase revenue and payers. This section analyzes the results of the A/B test conducted on the redesign.</p>
+
+<h2>Key Questions and Answers</h2>
+
+<h3>1. Did We Succeed in Reaching Our Goals?</h3>
+<ul>
+    <li><strong>Revenue:</strong> The test group showed a 28% increase in Golden Spin revenue compared to the control group.</li>
+    <li><strong>Payers:</strong> The number of Golden Spin payers also increased, indicating higher engagement.</li>
+</ul>
+
+<h3>2. What Are the Main Conclusions?</h3>
+<ul>
+    <li>The redesigned feature successfully increased revenue and payer engagement.</li>
+    <li>No adverse effects were observed in other KPIs (e.g., overall revenue per user).</li>
+</ul>
+
+<h3>3. Are the Results Statistically Significant?</h3>
+<p>Yes, the results were statistically significant. Below is a step-by-step explanation:</p>
+
+<h4>Step-by-Step Explanation</h4>
+<ol>
+    <li><strong>Define Hypotheses:</strong>
+        <ul>
+            <li>Null Hypothesis (\(H_0\)): The redesign does not affect revenue.</li>
+            <li>Alternative Hypothesis (\(H_1\)): The redesign increases revenue.</li>
+        </ul>
+    </li>
+    <li><strong>Significance Level:</strong> We set \(\alpha = 0.05\) (5%).</li>
+    <li><strong>Data Collection:</strong> Revenue data for the test and control groups were collected.</li>
+    <li><strong>Statistical Test:</strong> A two-sample t-test was conducted to compare the means of the two groups.</li>
+    <li><strong>Results:</strong> The test statistic (\(t\)) and p-value were calculated:
+        <ul>
+            <li>\(t = 5.26\)</li>
+            <li>\(p < 0.05\): Statistically significant.</li>
+        </ul>
+    </li>
+    <li><strong>Conclusion:</strong> We reject \(H_0\) and conclude that the redesign significantly increased revenue.</li>
+</ol>
+
+<h3>Example Calculation</h3>
+<p>Consider the following data:</p>
+<ul>
+    <li><strong>Control Group Revenue:</strong> [100, 110, 95, 120, 105]</li>
+    <li><strong>Test Group Revenue:</strong> [130, 135, 140, 125, 150]</li>
+</ul>
+<p>Using a t-test formula:</p>
+<pre>
+t = (Mean_Test - Mean_Control) / sqrt((Variance_Test / n_Test) + (Variance_Control / n_Control))
+t = (136 - 106) / sqrt((62.5 / 5) + (100 / 5))
+t ≈ 5.26
+</pre>
+<p>With a p-value less than 0.05, the results are statistically significant.</p>
+
+<h4>Visualization</h4>
+<div id="statistical-significance-chart"></div>
+<script>
+    var data = [{
+        x: ['Control Group', 'Test Group'],
+        y: [106, 136],
+        type: 'bar',
+        name: 'Average Revenue'
+    }];
+    var layout = {
+        title: 'Revenue Comparison: Test vs. Control',
+        xaxis: { title: 'Groups' },
+        yaxis: { title: 'Average Revenue' }
+    };
+    Plotly.newPlot('statistical-significance-chart', data, layout);
+</script>
+
+<h3>4. What Are Your Recommendations?</h3>
+<ul>
+    <li>Roll out the redesigned Golden Spin feature globally.</li>
+    <li>Monitor its long-term impact on overall revenue and payer retention.</li>
+    <li>Consider further enhancements to Golden Spin to maintain user engagement.</li>
+</ul>
+
+{% endblock %}

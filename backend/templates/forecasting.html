@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Forecasting and SQL Examples</h1>
+
+<h2>SQL Queries</h2>
+
+<h3>1. Male Users and Deposit Summary</h3>
+<pre>
+SELECT 
+    u.User_id, 
+    COALESCE(SUM(CASE 
+        WHEN d.amount > 10 AND d.time_stamp >= '2017-01-01' THEN d.amount 
+        ELSE 0 
+    END), 0) AS Total_Deposits
+FROM Users u
+LEFT JOIN Deposits d ON u.User_id = d.User_id
+WHERE u.Gender = 'M'
+GROUP BY u.User_id;
+</pre>
+
+<h3>2. Salesperson Metrics</h3>
+<pre>
+SELECT 
+    s.Salesperson_id,
+    COUNT(DISTINCT o.Customer_id) AS Unique_Customers,
+    AVG(o.amount) AS Avg_Order_Amount,
+    PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY o.amount) AS Median_Order_Amount
+FROM Salesperson s
+LEFT JOIN Orders o ON s.Salesperson_id = o.Salesperson_id
+GROUP BY s.Salesperson_id;
+</pre>
+
+<h2>Churn Prediction</h2>
+<div id="churn-visualization"></div>
+<script>
+    var churnData = [{
+        x: ['High Engagement', 'Medium Engagement', 'Low Engagement'],
+        y: [80, 50, 20],
+        type: 'bar'
+    }];
+    var churnLayout = {
+        title: 'Churn Prediction by Engagement Level',
+        xaxis: { title: 'Engagement Level' },
+        yaxis: { title: 'Churn Probability (%)' }
+    };
+    Plotly.newPlot('churn-visualization', churnData, churnLayout);
+</script> 
+
+
+<h2>Interactive Dashboard</h2>
+<p>Visit the <a href="/">Dashboard</a> for KPI insights.</p>
+{% endblock %}

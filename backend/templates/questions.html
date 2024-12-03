@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Questions and Answers</h1>
+
+<h2>1. Variables for Forecasting Churn</h2>
+<p>To predict churn effectively, the following variables are considered:</p>
+<ul>
+    <li><strong>Daily Active Time:</strong> Indicates engagement; lower activity signals churn risk.</li>
+    <li><strong>Number of Daily Sessions:</strong> Higher sessions mean deeper involvement.</li>
+    <li><strong>Time Since Last Login:</strong> Longer gaps suggest declining interest.</li>
+    <li><strong>Lifetime Value (Tier):</strong> High-value users may churn differently.</li>
+    <li><strong>Platform:</strong> User behavior varies by platform.</li>
+</ul>
+<p><strong>Example:</strong> A user with 5 sessions/day is less likely to churn than one with 1 session/week.</p>
+
+<h2>2. Revenue KPIs from May Data</h2>
+<p>Analysis shows:</p>
+<ul>
+    <li><strong>Tier Trends:</strong> Royal Diamond tier contributes the most revenue.</li>
+    <li><strong>Platform Trends:</strong> iOS users generate higher ARPU than Android.</li>
+</ul>
+
+<h2>3. Ad-Monetization Pros and Cons</h2>
+<ul>
+    <li><strong>Pros:</strong> Increased revenue, longer sessions.</li>
+    <li><strong>Cons:</strong> Risk of payer dissatisfaction.</li>
+</ul>
+
+<h2>4. A/B Test Analysis</h2>
+<p>Key results:</p>
+<ul>
+    <li><strong>Revenue Contribution:</strong> Golden Spin revenue increased by 28%.</li>
+    <li><strong>Recommendation:</strong> Roll out globally.</li>
+</ul>
+{% endblock %}

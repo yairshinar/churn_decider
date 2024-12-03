@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Interactive Dashboard</h1>
+
+<h2>May KPI Analysis</h2>
+<div id="may-kpi-chart"></div>
+
+<h2>A/B Test Results</h2>
+<div id="ab-test-chart"></div>
+
+<h2>Churn Prediction Visualization</h2>
+<div id="churn-chart"></div>
+
+<script>
+    // KPI and A/B Test Visualizations
+    var mayKPIChart = JSON.parse('{{ may_kpi_chart | safe }}');
+    var abTestChart = JSON.parse('{{ ab_test_chart | safe }}');
+    var churnChart = JSON.parse('{{ churn_chart | safe }}');
+
+    Plotly.newPlot('may-kpi-chart', mayKPIChart.data, mayKPIChart.layout);
+    Plotly.newPlot('ab-test-chart', abTestChart.data, abTestChart.layout);
+    Plotly.newPlot('churn-chart', churnChart.data, churnChart.layout);
+</script>
+
+<h2>Data Downloads</h2>
+<ul>
+    <li><a href="/download/may_kpi.csv">Download May KPI Data</a></li>
+    <li><a href="/download/ab_test_summary.csv">Download A/B Test Summary Data</a></li>
+    <li><a href="/download/churn_data.csv">Download Churn Prediction Data</a></li>
+</ul>
+{% endblock %}
