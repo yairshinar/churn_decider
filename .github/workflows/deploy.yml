@@ -31,7 +31,7 @@ jobs:
 
     - name: Deploy to Elastic Beanstalk
       run: |
-        eb init -p docker --region us-east-1
+        eb init -p docker --region us-east-1 --aplication ProdDocker
         eb use churn 
         eb deploy 
 
