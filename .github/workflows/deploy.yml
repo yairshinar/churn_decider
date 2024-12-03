@@ -33,5 +33,5 @@ jobs:
       run: |
         eb init -p docker --region us-east-1
         eb use ProdDocker-env
-        eb deploy --application-name ProdDocker
+        eb deploy 
 
