@@ -1,4 +1,4 @@
-from flask import Flask, render_template, send_file
+from flask import Flask, render_template, send_file,jsonify
 import pandas as pd
 import plotly.express as px
 import os
@@ -10,6 +10,10 @@ may_kpi = pd.read_csv('data/may_kpi.csv')
 ab_test_summary = pd.read_csv('data/ab_test_summary.csv')
 
 @app.route('/')
+def health_check():
+    return jsonify({"status": "healthy flask"}), 200
+
+@app.route('/flask')
 def index():
     # KPI Visualizations
     may_kpi_chart = px.bar(
@@ -43,19 +47,19 @@ def index():
         churn_chart=churn_chart
     )
 
-@app.route('/questions')
+@app.route('/flask/questions')
 def questions():
     return render_template('questions.html')
 
-@app.route('/ab_test_analysis')
+@app.route('/flask/ab_test_analysis')
 def ab_test_analysis():
     return render_template('ab_test_analysis.html')
 
-@app.route('/forecasting')
+@app.route('/flask/forecasting')
 def forecasting():
     return render_template('forecasting.html')
 
-@app.route('/download/<filename>')
+@app.route('/flask/download/<filename>')
 def download(filename):
     filepath = os.path.join('data', filename)
     if os.path.exists(filepath):

@@ -1,31 +1,41 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Interactive Dashboard</h1>
+<h1>Business Insights Dashboard</h1>
+
+<p>Welcome to the Business Insights Dashboard. This platform provides key performance indicators (KPIs), A/B test results, and user churn predictions for Playtika's online gaming platform.</p>
 
 <h2>May KPI Analysis</h2>
+<p>Revenue and user activity in May 2017 were analyzed across tiers and platforms to identify trends and opportunities. Below is a visualization of revenue distribution:</p>
 <div id="may-kpi-chart"></div>
 
 <h2>A/B Test Results</h2>
+<p>An A/B test was conducted to measure the impact of redesigning the Golden Spin feature. The following chart shows the revenue contribution of the control and test groups:</p>
 <div id="ab-test-chart"></div>
 
-<h2>Churn Prediction Visualization</h2>
+<h2>Churn Prediction</h2>
+<p>This section visualizes the predicted churn probability of users based on their engagement metrics. High churn probability users can be targeted with retention strategies:</p>
 <div id="churn-chart"></div>
 
 <script>
-    // KPI and A/B Test Visualizations
+    // KPI Visualization
     var mayKPIChart = JSON.parse('{{ may_kpi_chart | safe }}');
-    var abTestChart = JSON.parse('{{ ab_test_chart | safe }}');
-    var churnChart = JSON.parse('{{ churn_chart | safe }}');
-
     Plotly.newPlot('may-kpi-chart', mayKPIChart.data, mayKPIChart.layout);
+
+    // A/B Test Visualization
+    var abTestChart = JSON.parse('{{ ab_test_chart | safe }}');
     Plotly.newPlot('ab-test-chart', abTestChart.data, abTestChart.layout);
+
+    // Churn Visualization
+    var churnChart = JSON.parse('{{ churn_chart | safe }}');
     Plotly.newPlot('churn-chart', churnChart.data, churnChart.layout);
 </script>
 
-<h2>Data Downloads</h2>
+<h2>Download Data</h2>
+<p>Access the raw data used for analysis below:</p>
+ 
 <ul>
-    <li><a href="/download/may_kpi.csv">Download May KPI Data</a></li>
-    <li><a href="/download/ab_test_summary.csv">Download A/B Test Summary Data</a></li>
-    <li><a href="/download/churn_data.csv">Download Churn Prediction Data</a></li>
+    <li><a href="/flask/download/may_kpi.csv">Download May KPI Data</a></li>
+    <li><a href="/flask/download/ab_test_summary.csv">Download A/B Test Summary Data</a></li>
+    <li><a href="/flask/download/churn_data.csv">Download Churn Prediction Data</a></li>
 </ul>
 {% endblock %}

@@ -1,10 +1,20 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Forecasting and SQL Examples</h1>
+<h1>Forecasting Churn and SQL Insights</h1>
 
-<h2>SQL Queries</h2>
+<h2>Churn Prediction Model</h2>
+<p>We developed a churn prediction model based on user engagement data. Key features include:</p>
+<ul>
+    <li><strong>Daily Active Time:</strong> Measures engagement; low activity indicates churn risk.</li>
+    <li><strong>Days Since Last Login:</strong> Recency of user activity.</li>
+    <li><strong>Purchases:</strong> Monetary engagement through in-game purchases.</li>
+</ul>
+<p>The model predicts churn probabilities, which are visualized on the dashboard. Users with high churn probabilities can be targeted with retention campaigns.</p>
 
-<h3>1. Male Users and Deposit Summary</h3>
+<h2>SQL Query Insights</h2>
+<p>The following SQL queries provide actionable insights:</p>
+
+<h3>Query 1: Total Deposits for Male Users</h3>
 <pre>
 SELECT 
     u.User_id, 
@@ -18,35 +28,19 @@ WHERE u.Gender = 'M'
 GROUP BY u.User_id;
 </pre>
 
-<h3>2. Salesperson Metrics</h3>
+<h3>Query 2: Salesperson Metrics</h3>
 <pre>
 SELECT 
     s.Salesperson_id,
+    COUNT(CASE WHEN o.amount > 1000 THEN 1 END) AS Orders_Above_1000,
+    CASE 
+        WHEN MAX(CASE WHEN o.amount > 500 THEN 1 ELSE 0 END) = 1 THEN 1 
+        ELSE 0 
+    END AS Had_Order_Above_500,
     COUNT(DISTINCT o.Customer_id) AS Unique_Customers,
-    AVG(o.amount) AS Avg_Order_Amount,
-    PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY o.amount) AS Median_Order_Amount
+    DATEDIFF(CURDATE(), MAX(o.Order_date)) AS Days_Since_Last_Order
 FROM Salesperson s
 LEFT JOIN Orders o ON s.Salesperson_id = o.Salesperson_id
 GROUP BY s.Salesperson_id;
 </pre>
-
-<h2>Churn Prediction</h2>
-<div id="churn-visualization"></div>
-<script>
-    var churnData = [{
-        x: ['High Engagement', 'Medium Engagement', 'Low Engagement'],
-        y: [80, 50, 20],
-        type: 'bar'
-    }];
-    var churnLayout = {
-        title: 'Churn Prediction by Engagement Level',
-        xaxis: { title: 'Engagement Level' },
-        yaxis: { title: 'Churn Probability (%)' }
-    };
-    Plotly.newPlot('churn-visualization', churnData, churnLayout);
-</script> 
-
-
-<h2>Interactive Dashboard</h2>
-<p>Visit the <a href="/">Dashboard</a> for KPI insights.</p>
 {% endblock %}
